@@ -1,0 +1,15 @@
+Source: linuxmuster-client-shares
+Section: debian-linuxmuster
+Priority: optional
+Maintainer: Frank Schiebel <frank@linuxmuster.net>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.0
+
+Package: linuxmuster-client-shares
+Architecture: all
+Conflicts: linuxmuster-base
+Depends: linuxmuster-client-auth
+Description: Linux-Musterloesung client configuration scripts
+ This package provides configuration and scripts for debian-based
+ clients for mounting shres from the Linux Musterlösung via cifs
+

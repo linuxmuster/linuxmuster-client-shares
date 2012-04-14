@@ -1,0 +1,7 @@
+linuxmuster-client-shares (0.1-precise2) testing; urgency=low
+
+  * initial release
+  * no pam mount for lightdm session
+
+ -- Frank Schiebel <frank@linuxmuster.net>  Sat, 14 Apr 2012 14:56:59 +0200
+

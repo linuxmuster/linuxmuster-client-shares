@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# mount wrapper for pam_mount
+# frank@linuxmuster.net
+#
+# 18.12.2009
+# GPL v3
+#
+
+# args
+SERVER=$1
+VOLUME=$2
+MNTPT=$3
+USER=$4
+OPTIONS="$5"
+
+# check if params are all set
+[ -z "$SERVER" ] && exit 1
+[ -z "$VOLUME" ] && exit 1
+[ -z "$MNTPT" ] && exit 1
+[ -z "$USER" ] && exit 1
+[ -z "$OPTIONS" ] && exit 1
+
+# no mounting for lightdm session
+if [ "$USER" == "lightdm" ]; then exit 0; fi
+
+# now we will mount - log it!
+logger -t linuxmuster-pam-mount "Mounting with: SERVER $SERVER, VOLUME $VOLUME, MNTPT $MNTPT, USER $USER OPTIONS $OPTIONS"
+
+# not for TEMPLATE_USER
+if [ "linuxadmin" != "$USER" ]; then
+ # no pammount for local users
+ grep -q ^${USER}: /etc/passwd && exit 0
+ # mount the given share
+ mount -t cifs //${SERVER}/${VOLUME} $MNTPT -o "$OPTIONS" || exit 1
+fi
