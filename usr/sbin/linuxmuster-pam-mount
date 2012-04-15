@@ -3,8 +3,8 @@
 # mount wrapper for pam_mount
 # frank@linuxmuster.net
 #
-# 18.12.2009
-# GPL v3
+# 15.04.2012
+# GPL v2
 #
 
 # args
@@ -13,6 +13,49 @@ VOLUME=$2
 MNTPT=$3
 USER=$4
 OPTIONS="$5"
+
+
+# functions
+log_msg() {
+    logger -t linuxmuster-pam-mount "$1"
+}
+
+run_hook() {
+    local script="$1"
+    local exit_status
+    shift   # discard the first argument, then the rest are the script's
+
+    if [ -f $script ]; then
+        . $script "$@"
+    fi
+
+    if [ -n "$exit_status" ] && [ "$exit_status" -ne 0 ]; then
+        logger -p daemon.err "$script returned non-zero exit status $exit_status"
+        save_exit_status=$exit_status
+    fi
+
+    return $exit_status
+}
+
+run_hookdir() {
+    local dir="$1"
+    local exit_status
+    shift   # See run_hook
+
+    if [ -d "$dir" ]; then
+        for script in $(run-parts --list $dir); do
+            run_hook $script "$@" || true
+            exit_status=$?
+        done
+    fi
+
+    return $exit_status
+}
+
+# Log invocation and parameters
+log_msg "Invoked with: SERVER $SERVER, VOLUME $VOLUME, MNTPT $MNTPT, USER $USER OPTIONS $OPTIONS"
+
+# mounting part starts here
 
 # check if params are all set
 [ -z "$SERVER" ] && exit 1
@@ -24,13 +67,19 @@ OPTIONS="$5"
 # no mounting for lightdm session
 if [ "$USER" == "lightdm" ]; then exit 0; fi
 
-# now we will mount - log it!
-logger -t linuxmuster-pam-mount "Mounting with: SERVER $SERVER, VOLUME $VOLUME, MNTPT $MNTPT, USER $USER OPTIONS $OPTIONS"
+# PRE MOUNT HOOK
+log_msg "pre-mount sequence: run_hookdir /etc/linuxmuster-client/pre-mount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER"
+run_hookdir /etc/linuxmuster-client/pre-mount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER
 
 # not for TEMPLATE_USER
 if [ "linuxadmin" != "$USER" ]; then
  # no pammount for local users
  grep -q ^${USER}: /etc/passwd && exit 0
  # mount the given share
+ log_msg "Executing mount: mount -t cifs //${SERVER}/${VOLUME} $MNTPT -o \"$OPTIONS\""
  mount -t cifs //${SERVER}/${VOLUME} $MNTPT -o "$OPTIONS" || exit 1
 fi
+
+# POST MOUNT HOOK
+log_msg "post-mount sequence: run_hookdir /etc/linuxmuster-client/post-mount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER"
+run_hookdir /etc/linuxmuster-client/post-mount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER

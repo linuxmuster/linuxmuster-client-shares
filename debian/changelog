@@ -1,7 +1,11 @@
-linuxmuster-client-shares (0.1-precise2) testing; urgency=low
+linuxmuster-client-shares (0.3-precise1) testing; urgency=low
 
   * initial release
   * no pam mount for lightdm session
+  * Disabled debugging in pam_mount.conf.xml
+  * Changed OPTIONS in pam_mount.conf.xml so that options are actually sent to
+    mount script
+  * Added hooks for executing logon scripts, increased logging verbosity
+  * Switched to pre-mount and post-mount hooks
 
- -- Frank Schiebel <frank@linuxmuster.net>  Sat, 14 Apr 2012 14:56:59 +0200
-
+ -- Frank Schiebel <frank@linuxmuster.net>  Sun, 15 Apr 2012 19:26:13 +0200
