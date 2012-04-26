@@ -1,0 +1,56 @@
+# linuxmuster-client-auth
+#
+# gets ldap configuration from dns
+. /etc/linuxmuster-client/auth/config
+
+if [ "x${AUTOCONFIGURE_LDAP}" != "xYES" ]; then
+    echo "Info: Autoconfiguring of LDAP disabled"
+    return 0
+fi
+
+TEMPLATESDIR="/var/lib/linuxmuster-client-shares/templates"
+
+# determine client ip
+clientip=`ifconfig  | grep 255.240.0.0 | awk '{print $2}' | awk -F: '{print $2}'`
+clientname=`host $clientip | awk '{print $5}' | cut -d. -f1`
+# determine servername
+fqsn=`host -v $clientip | grep -A1 AUTHORITY | grep in.addr | awk '{print $5}'`
+# determine serverip
+serverip=`host $fqsn | awk '{print $4}'`
+PARTS=$(echo $fqsn | tr "." "\n")
+
+sn=""
+basedn=""
+for part in $PARTS; do
+    if [ -z ${sn}  ]; then
+     sn="$part"
+    else
+     if [ -z ${basedn} ]; then
+    basedn="dc=$part"
+     else
+    basedn="$basedn,dc=$part"
+     fi
+    fi
+done
+
+echo "Autoconfiguring PAM_MOUNT..."
+echo "  Client IP is: <$clientip>"
+echo "  Client hostname is: <$clientname>"
+echo "  Server IP is: <$serverip>"
+echo "  Server name is: <$fqsn>"
+echo "  Server host name is: <$sn>"
+echo "  BaseDN is: <$basedn>"
+
+if [ "x${serverip}" != "x" ]; then
+    echo -n "Configuring pam_mount to serverIP ${serverip}..."
+    # patch template file to /etc
+    cd ${TEMPLATESDIR}
+    find -type f -name pam_mount.conf.xml | xargs -i -t sh -c \
+        "sed -e 's%@@serverip@@%${serverip}%g' {} > /{}" 2> /dev/null 1> /dev/null
+    echo "  done."
+else
+    if [ -f /etc/linuxmuster-client/shares/pam_mount.conf.xml.fallback ]; then
+        echo "WARNING: Autoconfiguring pam_mount FAILED! Copying /etc/linuxmuster-client/shares/pam_mount.conf.xml.fallback to /etc/security/pam_mount.conf.xml"
+        cp /etc/linuxmuster-client/shares/pam_mount.conf.xml.fallback  /etc/security/pam_mount.conf.xml
+    fi
+fi
