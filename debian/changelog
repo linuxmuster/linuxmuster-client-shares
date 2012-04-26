@@ -1,7 +1,14 @@
+linuxmuster-client-shares (0.5-precise5) linuxmuster-client; urgency=low
+
+  * Changed umount command to linuxmuster-pam-umount, enabling pre- and
+    post-umount hooks
+  * fixed wrong path to profile config dir
+
+ -- Frank Schiebel <frank@linuxmuster.net>  Thu, 26 Apr 2012 22:27:37 +0200
+
 linuxmuster-client-shares (0.5-precise2) linuxmuster-client; urgency=low
 
   * Added boot.d script for autoconfiguring server ip in /etc/security/pam_mount.conf.xml
-  * 
 
  -- Frank Schiebel <frank@linuxmuster.net>  Thu, 26 Apr 2012 12:18:27 +0200
 

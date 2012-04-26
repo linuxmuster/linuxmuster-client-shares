@@ -11,8 +11,8 @@
 PROFILE_USER="linuxadmin"
 # if the package linuxmuster-client-profile is installed,
 # configuration is stored in /etc/linuxmuster-client/profile.conf
-if [ -f /etc/linuxmuster-client/profile.conf ]; then
-.  /etc/linuxmuster-client/profile.conf
+if [ -f /etc/linuxmuster-client/profile/profile.conf ]; then
+.  /etc/linuxmuster-client/profile/profile.conf
 fi
 
 # args
