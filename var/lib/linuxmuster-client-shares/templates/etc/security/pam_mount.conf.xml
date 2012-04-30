@@ -4,15 +4,15 @@
 <mkmountpoint enable="1" />
 <lsof>/usr/bin/lsof %(MNTPT)</lsof>
 <fsck>/sbin/fsck -p %(FSCKTARGET)</fsck>
-<cifsmount>/usr/sbin/linuxmuster-pam-mount %(SERVER) %(VOLUME) %(MNTPT) %(USER) "username=%(USER),%(OPTIONS)"</cifsmount>
+<cifsmount>/usr/sbin/linuxmuster-pam-mount %(SERVER) %(VOLUME) %(MNTPT) %(USER) "user=%(USER),%(OPTIONS)"</cifsmount>
 <umount>/usr/sbin/linuxmuster-pam-umount %(SERVER) %(VOLUME) %(MNTPT) %(USER)</umount>
 <mntcheck>/bin/mount</mntcheck>
 <pmvarrun>/usr/sbin/pmvarrun -u %(USER) -d -o %(OPERATION)</pmvarrun>
 
-<volume options="rw,nosuid,nodev,iocharset=utf8,nobrl" user="*" mountpoint="~/Home_auf_Server" path="%(USER)" server="@@serverip@@" fstype="cifs" />
-<volume options="rw,nosuid,nodev,iocharset=utf8" user="*" mountpoint="/home/students" path="students" server="@@serverip@@" fstype="cifs" />
-<volume options="rw,nosuid,nodev,iocharset=utf8" user="*" mountpoint="/home/share" path="shares" server="@@serverip@@" fstype="cifs" />
-<volume options="rw,nosuid,nodev,iocharset=utf8" user="*" mountpoint="/home/samba/progs" path="pgm" server="@@serverip@@" fstype="cifs" />
-<volume options="rw,nosuid,nodev,iocharset=utf8" user="*" mountpoint="/home/samba/cds" path="cdrom" server="@@serverip@@" fstype="cifs" />
-<volume options="rw,nosuid,nodev,iocharset=utf8" user="*" mountpoint="/var/cache/sophomorix/tasks" path="tasks" server="@@serverip@@" fstype="cifs" />
+<volume options="rw,nosuid,nodev,nobrl" user="*" mountpoint="~/Home_auf_Server" path="%(USER)" server="@@serverip@@" fstype="cifs" />
+<volume options="rw,nosuid,nodev" user="*" mountpoint="/home/students" path="students" server="@@serverip@@" fstype="cifs" />
+<volume options="rw,nosuid,nodev" user="*" mountpoint="/home/share" path="shares" server="@@serverip@@" fstype="cifs" />
+<volume options="rw,nosuid,nodev" user="*" mountpoint="/home/samba/progs" path="pgm" server="@@serverip@@" fstype="cifs" />
+<volume options="rw,nosuid,nodev," user="*" mountpoint="/home/samba/cds" path="cdrom" server="@@serverip@@" fstype="cifs" />
+<volume options="rw,nosuid,nodev" user="*" mountpoint="/var/cache/sophomorix/tasks" path="tasks" server="@@serverip@@" fstype="cifs" />
 </pam_mount>

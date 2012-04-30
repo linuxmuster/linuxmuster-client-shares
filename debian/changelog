@@ -1,3 +1,18 @@
+linuxmuster-client-shares (0.5-precise10) linuxmuster-client; urgency=low
+
+  * Fixed empty-OPTIONS bug in linuxmuster-pam-mount, linuxmuster-pam-umount
+  * Changed pam_mount-conf.xml
+  * Changed test, if share is mounted in linuxmuster-pam-umount
+  * Fixed wrong parameters for post-umount-hook in linuxmuster-pam-umount
+
+ -- Frank Schiebel <frank@linuxmuster.net>  Mon, 30 Apr 2012 20:12:05 +0200
+
+linuxmuster-client-shares (0.5-precise6) linuxmuster-client; urgency=low
+
+  * First documented version
+
+ -- Frank Schiebel <frank@linuxmuster.net>  Mon, 30 Apr 2012 18:47:31 +0200
+
 linuxmuster-client-shares (0.5-precise5) linuxmuster-client; urgency=low
 
   * Changed umount command to linuxmuster-pam-umount, enabling pre- and

@@ -3,7 +3,7 @@
 # gets ldap configuration from dns
 . /etc/linuxmuster-client/auth/config
 
-if [ "x${AUTOCONFIGURE_LDAP}" != "xYES" ]; then
+if [ "${AUTOCONFIGURE_LDAP}" != "YES" ]; then
     echo "Info: Autoconfiguring of LDAP disabled"
     return 0
 fi

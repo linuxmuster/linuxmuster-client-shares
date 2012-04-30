@@ -22,15 +22,6 @@ MNTPT=$3
 USER=$4
 
 
-# functions
-# check if mountpoint is mounted
-mounted(){
- if cat /proc/mounts | grep -qw $MNTPT; then
-  return 0
- else
-  return 1
- fi
-}
 
 log_msg() {
     logger -t linuxmuster-pam-umount "$1"
@@ -78,7 +69,6 @@ log_msg "Umount invoked with: SERVER $SERVER, VOLUME $VOLUME, MNTPT $MNTPT, USER
 [ -z "$VOLUME" ] && exit 1
 [ -z "$MNTPT" ] && exit 1
 [ -z "$USER" ] && exit 1
-[ -z "$OPTIONS" ] && exit 1
 
 # no action for lightdm session
 if [ "$USER" == "lightdm" ]; then exit 0; fi
@@ -88,25 +78,27 @@ if [ "$USER" == "$PROFILE_USER" ]; then exit 0; fi
 grep -q ^${USER}: /etc/passwd && exit 0
 
 # PRE UMOUNT HOOK
-log_msg "pre-mount sequence: run_hookdir /etc/linuxmuster-client/pre-umount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER"
-run_hookdir /etc/linuxmuster-client/pre-umount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER
+log_msg "pre-umount sequence: run_hookdir /etc/linuxmuster-client/pre-umount.d $USER $VOLUME $MNTPT $SERVER"
+run_hookdir /etc/linuxmuster-client/pre-umount.d $USER $VOLUME $MNTPT $SERVER
 
 # umount the given share
 log_msg "Unmounting $MNTPT"
+
 # umount given share
 umount $MNTPT || umount -l $MNTPT
-if [ mounted ]; then
+
+if cat /proc/mounts | grep -qw $MNTPT; then
     log_msg "$MNTPT still mounted, trying again"
     umount $MNTPT || umount -l $MNTPT
 fi
-if [ mounted ]; then
+
+if cat /proc/mounts | grep -qw $MNTPT; then
     sleep 5
     log_msg "$MNTPT still mounted, killing processes..."
     kill -9 `lsof -t $MNTPT`
     umount $MNTPT || umount -l $MNTPT
 fi
 
-mounted || exit 1
 # POST MOUNT HOOK
 log_msg "post-umount sequence: run_hookdir /etc/linuxmuster-client/post-umount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER"
-run_hookdir /etc/linuxmuster-client/post-umount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER
+run_hookdir /etc/linuxmuster-client/post-umount.d $USER $VOLUME $MNTPT $SERVER

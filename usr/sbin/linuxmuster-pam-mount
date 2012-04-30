@@ -70,6 +70,7 @@ log_msg "Invoked with: SERVER $SERVER, VOLUME $VOLUME, MNTPT $MNTPT, USER $USER 
 [ -z "$VOLUME" ] && exit 1
 [ -z "$MNTPT" ] && exit 1
 [ -z "$USER" ] && exit 1
+# at least user=USERNAME has to beg iven as an option
 [ -z "$OPTIONS" ] && exit 1
 
 # no mounting for lightdm session
@@ -80,13 +81,14 @@ if [ "$USER" == "$PROFILE_USER" ]; then exit 0; fi
 grep -q ^${USER}: /etc/passwd && exit 0
 
 # PRE MOUNT HOOK
-log_msg "pre-mount sequence: run_hookdir /etc/linuxmuster-client/pre-mount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER"
-run_hookdir /etc/linuxmuster-client/pre-mount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER
+log_msg "pre-mount sequence: run_hookdir /etc/linuxmuster-client/pre-mount.d $USER $VOLUME $MNTPT $SERVER $OPTIONS"
+run_hookdir /etc/linuxmuster-client/pre-mount.d $USER $VOLUME $MNTPT $SERVER $OPTIONS
 
 # mount the given share
 log_msg "Executing mount: mount -t cifs //${SERVER}/${VOLUME} $MNTPT -o \"$OPTIONS\""
+
 mount -t cifs //${SERVER}/${VOLUME} $MNTPT -o "$OPTIONS" || exit 1
 
 # POST MOUNT HOOK
-log_msg "post-mount sequence: run_hookdir /etc/linuxmuster-client/post-mount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER"
-run_hookdir /etc/linuxmuster-client/post-mount.d $USER $VOLUME $MNTPT $OPTIONS $SERVER
+log_msg "post-mount sequence: run_hookdir /etc/linuxmuster-client/post-mount.d $USER $VOLUME $MNTPT $SERVER $OPTIONS"
+run_hookdir /etc/linuxmuster-client/post-mount.d $USER $VOLUME $MNTPT $SERVER $OPTIONS
