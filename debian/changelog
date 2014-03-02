@@ -1,3 +1,9 @@
+linuxmuster-client-shares (0.5-trusty1) trusty-testing; urgency=low
+
+  * Setting version to trusty, creating git branch
+
+ -- Frank Schiebel <frank@linuxmuster.net>  Sun, 02 Mar 2014 15:15:32 +0100
+
 linuxmuster-client-shares (0.5-precise10) linuxmuster-client; urgency=low
 
   * Fixed empty-OPTIONS bug in linuxmuster-pam-mount, linuxmuster-pam-umount
