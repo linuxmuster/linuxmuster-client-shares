@@ -1,6 +1,7 @@
-linuxmuster-client-shares (0.5-trusty1) trusty-testing; urgency=low
+linuxmuster-client-shares (0.5-trusty1) trusty; urgency=low
 
   * Setting version to trusty, creating git branch
+  * Changed target repo to trusty
 
  -- Frank Schiebel <frank@linuxmuster.net>  Sun, 02 Mar 2014 15:15:32 +0100
 
