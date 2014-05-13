@@ -1,3 +1,9 @@
+linuxmuster-client-shares (0.6-precise2) precise; urgency=low
+
+  * linuxmuster-client.conf nach /etc/linuxmuster-client/ verschoben 
+
+ -- Rainer Roessler <rainer@linuxmuster.net>  Wed, 14 May 2014 01:36:50 +0200
+
 linuxmuster-client-shares (0.6-precise1) precise; urgency=low
 
   * Anmeldescripte 006-tasks-links , 007-share-links und 008-links
