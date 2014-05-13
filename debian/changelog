@@ -1,3 +1,16 @@
+linuxmuster-client-shares (0.6-precise1) precise; urgency=low
+
+  * Anmeldescripte 006-tasks-links , 007-share-links und 008-links
+	die als Ersatz für wide-links und bind-mounts die Tauschverzeichnisse
+	und Vorlagenverzeichnisse ins lokale Heimatverzeichnis anlegen.
+
+  * Ort der Links wird in linkfoldername.conf konfiguriert.
+
+  * Außerdem können beliebige Links konfiguriert werden mit der
+	Konfigurationsdatei links.conf
+
+ -- Rainer Roessler <rainer@linuxmuster.de>  Wed, 14 May 2014 01:09:32 +0200
+
 linuxmuster-client-shares (0.5-precise10) linuxmuster-client; urgency=low
 
   * Fixed empty-OPTIONS bug in linuxmuster-pam-mount, linuxmuster-pam-umount
