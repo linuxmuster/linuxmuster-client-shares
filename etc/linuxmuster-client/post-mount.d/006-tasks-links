@@ -65,7 +65,10 @@ else
  # Wenn LINKFOLDERTASKS leer ist, werden keine Links für Vorlagen gesetzt.
  if [ $LINKFOLDERTASKS != "" ]; then
   
-  GRUPPEN=`getent group | grep $USER | cut -d ":" -f 1` 
+  GRUPPEN1=`getent group | grep "[:,]$USER," | cut -d ":" -f 1` 
+  GRUPPEN2=`getent group | grep "[:,]$USER$" | cut -d ":" -f 1` 
+  GRUPPEN="$GRUPPEN1 $GRUPPEN2"
+
   # in GRUPPEN sind alle Gruppen mit Leerzeichen getrennt aufgeführt,
   # in denen der Anzumeldende Mitglied ist.
   # Die Projektgruppen haben ein "p_" am Anfang des Namens.
@@ -152,6 +155,10 @@ else
    ln -s $SERVER $LOKAL
   fi
   
+  #echo
+  #echo Server $SERVER
+  #echo Lokal $LOKAL
+
  done
 
 fi
