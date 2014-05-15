@@ -65,9 +65,12 @@ else
  # Wenn LINKFOLDERTASKS leer ist, werden keine Links für Vorlagen gesetzt.
  if [ $LINKFOLDERTASKS != "" ]; then
   
+  NEWLINE=$'\n'
   GRUPPEN1=`getent group | grep "[:,]$USER," | cut -d ":" -f 1` 
   GRUPPEN2=`getent group | grep "[:,]$USER$" | cut -d ":" -f 1` 
-  GRUPPEN="$GRUPPEN1 $GRUPPEN2"
+  GRUPPEN="$GRUPPEN1$NEWLINE$GRUPPEN2"
+
+#  echo $GRUPPEN > /tmp/gruppen-test
 
   # in GRUPPEN sind alle Gruppen mit Leerzeichen getrennt aufgeführt,
   # in denen der Anzumeldende Mitglied ist.
@@ -130,6 +133,9 @@ else
    SERVER=`echo /var/cache/sophomorix/tasks/projects/$GRMITGLIED`
   fi
     
+  # das Vorlagenverzeichnis der Lehrer wird nicht verbunden
+  # ansonsten muss man den Pfad entsprechend korrigieren
+  
   # Wenn Ziel auf Server NICHT vorhanden, 
   # (weder als Verzeichnis -d noch als Datei -f)
   # wird der Link nicht erzeugt.
@@ -153,11 +159,12 @@ else
   if [ -e `echo $SERVER` ]
   then 
    ln -s $SERVER $LOKAL
+   # echo ln -s $SERVER $LOKAL >> /tmp/gruppen-test
   fi
   
-  #echo
-  #echo Server $SERVER
-  #echo Lokal $LOKAL
+#  echo >> /tmp/gruppen-test
+#  echo Server $SERVER >> /tmp/gruppen-test
+#  echo Lokal $LOKAL >> /tmp/gruppen-test
 
  done
 

@@ -1,3 +1,9 @@
+linuxmuster-client-shares (0.6-precise4) precise; urgency=low
+
+  * Suche in getent group korrigiert
+
+ -- Rainer Roessler <rainer@linuxmuster.net>  Thu, 15 May 2014 16:22:19 +0200
+
 linuxmuster-client-shares (0.6-precise3) precise; urgency=low
 
   * Konfigurationsverzeichnis shares nach /etc/linuxmuster-client/ verschoben
@@ -21,7 +27,7 @@ linuxmuster-client-shares (0.6-precise1) precise; urgency=low
   * Außerdem können beliebige Links konfiguriert werden mit der
 	Konfigurationsdatei links.conf
 
- -- Rainer Roessler <rainer@linuxmuster.de>  Wed, 14 May 2014 01:09:32 +0200
+ -- Rainer Roessler <rainer@linuxmuster.net>  Wed, 14 May 2014 01:09:32 +0200
 
 linuxmuster-client-shares (0.5-precise10) linuxmuster-client; urgency=low
 
