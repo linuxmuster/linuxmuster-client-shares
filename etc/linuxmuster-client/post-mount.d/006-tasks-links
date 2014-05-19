@@ -32,8 +32,10 @@
 if [ "`echo $HOMEDIR | grep "/home/workstations"`" != "" ]
 then 
  
- RECHNERRAUM=`hostname | tr [:upper:] [:lower:] `
- RAUM=${RECHNERRAUM%%$TRENNER*}
+ #RECHNERRAUM=`hostname | tr [:upper:] [:lower:] `
+ #RAUM=${RECHNERRAUM%%$TRENNER*}
+ RAUM=`echo $HOMEDIR | cut -f "/" -f 4`
+
  SERVER=`echo /var/cache/sophomorix/tasks/rooms/$RAUM`
  LOKAL=`echo $HOMEDIR/$LINKFOLDERTASKS`
  
