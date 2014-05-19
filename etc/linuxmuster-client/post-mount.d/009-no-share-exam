@@ -1,0 +1,26 @@
+#!/bin/bash
+# Script created by Rainer Rössler (roesslerrr-at-web.de)
+# License: Free Software (License GPLv3)
+
+# Wenn ein workstations-account=Klassenarbeitsbenutzer angemeldet ist,
+# wird die Verbindung zum "archiv" getrennt. Es bleibt nur die 
+# nur lesbare Verbindung zu snapshots/vbox-snapshots.
+# Bei Domänenbenutzern wird die Verbindung snapshots/vbox-snapshots
+# aufgehoben und es bleibt die Verbindung ins archiv.
+# In beiden Fällen wird die fehlende Verbindung durch einen Link 
+# auf die andere Verbindung hergestellt. 
+
+if [ "`echo $HOMEDIR | grep workstations`" == "" ]
+then 
+
+ cd ~
+
+else
+
+ umount /home/share
+
+fi
+
+# Das Script wird nicht mit einem "exit 0" beendet, da sonst
+# das Hauptscript /usr/sbin/linuxmuster-pam-mount, aus dem heraus
+# es aufgerufen wird, damit beendet würde.
