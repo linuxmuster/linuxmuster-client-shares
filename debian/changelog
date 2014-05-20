@@ -1,3 +1,10 @@
+linuxmuster-client-shares (0.6-precise5) precise; urgency=low
+
+  * Sicherheitsupdate: verbundenes Tauschen-share im KA-Modus
+  * Bugfix: Home_auf_Server gelöscht bei Doppelanmeldung an einem client
+
+ -- Rainer Rössler <rainer@linuxmuster.net>  Tue, 20 May 2014 20:33:09 +0200
+
 linuxmuster-client-shares (0.6-precise4) precise; urgency=low
 
   * Suche in getent group korrigiert
