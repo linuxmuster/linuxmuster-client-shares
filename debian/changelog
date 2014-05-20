@@ -1,8 +1,9 @@
 linuxmuster-client-shares (0.6-trusty1) trusty; urgency=low
 
+  * Merge der Anpassungen von R. Roessler aus dem master-branch
   * Erstes Release für trusty
 
- -- Dominik Förderer <dominik.foerderer@windeck-gymnasium.de> Thu, 20 May 2014 09:05:19 +0100
+ -- Dominik Foerderer <dominik.foerderer@windeck-gymnasium.de> Thu, 20 May 2014 09:05:19 +0100
 
 linuxmuster-client-shares (0.6-precise4) precise; urgency=low
 
