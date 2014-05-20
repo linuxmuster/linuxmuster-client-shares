@@ -1,0 +1,21 @@
+#!/bin/bash
+# Script created by Rainer Rössler (rainer-at-linuxmuster.net)
+# License: Free Software (License GPLv3)
+
+# Wenn ein workstations-account=Klassenarbeitsbenutzer angemeldet ist,
+# wird die Verbindung zum Tauschen-Sahre getrennt. 
+
+if [ "`echo $HOMEDIR | grep workstations`" == "" ]
+then 
+
+ cd ~
+
+else
+
+ umount /home/share
+
+fi
+
+# Das Script wird nicht mit einem "exit 0" beendet, da sonst
+# das Hauptscript /usr/sbin/linuxmuster-pam-mount, aus dem heraus
+# es aufgerufen wird, damit beendet würde.

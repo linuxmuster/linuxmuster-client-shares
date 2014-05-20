@@ -1,4 +1,4 @@
-# linuxmuster-client-auth
+# linuxmuster-client-shares
 #
 # gets ldap configuration from dns
 . /etc/linuxmuster-client/auth/config

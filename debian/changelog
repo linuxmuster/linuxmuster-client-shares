@@ -1,9 +1,39 @@
-linuxmuster-client-shares (0.5-trusty1) trusty; urgency=low
+linuxmuster-client-shares (0.6-trusty1) trusty; urgency=low
 
-  * Setting version to trusty, creating git branch
-  * Changed target repo to trusty
+  * Erstes Release für trusty
 
- -- Frank Schiebel <frank@linuxmuster.net>  Sun, 02 Mar 2014 15:15:32 +0100
+ -- Dominik Förderer <dominik.foerderer@windeck-gymnasium.de> Thu, 20 May 2014 09:05:19 +0100
+
+linuxmuster-client-shares (0.6-precise4) precise; urgency=low
+
+  * Suche in getent group korrigiert
+
+ -- Rainer Roessler <rainer@linuxmuster.net>  Thu, 15 May 2014 16:22:19 +0200
+
+linuxmuster-client-shares (0.6-precise3) precise; urgency=low
+
+  * Konfigurationsverzeichnis shares nach /etc/linuxmuster-client/ verschoben
+
+ -- Rainer Roessler <rainer@linuxmuster.net>  Wed, 14 May 2014 01:51:09 +0200
+
+linuxmuster-client-shares (0.6-precise2) precise; urgency=low
+
+  * linuxmuster-client.conf nach /etc/linuxmuster-client/ verschoben 
+
+ -- Rainer Roessler <rainer@linuxmuster.net>  Wed, 14 May 2014 01:36:50 +0200
+
+linuxmuster-client-shares (0.6-precise1) precise; urgency=low
+
+  * Anmeldescripte 006-tasks-links , 007-share-links und 008-links
+	die als Ersatz für wide-links und bind-mounts die Tauschverzeichnisse
+	und Vorlagenverzeichnisse ins lokale Heimatverzeichnis anlegen.
+
+  * Ort der Links wird in linkfoldername.conf konfiguriert.
+
+  * Außerdem können beliebige Links konfiguriert werden mit der
+	Konfigurationsdatei links.conf
+
+ -- Rainer Roessler <rainer@linuxmuster.net>  Wed, 14 May 2014 01:09:32 +0200
 
 linuxmuster-client-shares (0.5-precise10) linuxmuster-client; urgency=low
 
