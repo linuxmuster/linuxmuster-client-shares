@@ -76,6 +76,8 @@ if [ "$USER" == "lightdm" ]; then exit 0; fi
 if [ "$USER" == "$PROFILE_USER" ]; then exit 0; fi
 # no action for local users
 grep -q ^${USER}: /etc/passwd && exit 0
+# umount only if USER is logged in
+if [ "`mount | grep $USER`" == "" ]; then exit 0; fi
 
 # PRE UMOUNT HOOK
 log_msg "pre-umount sequence: run_hookdir /etc/linuxmuster-client/pre-umount.d $USER $VOLUME $MNTPT $SERVER"
