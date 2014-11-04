@@ -1,17 +1,9 @@
-linuxmuster-client-shares (0.6-trusty2) trusty; urgency=low
+linuxmuster-client-shares (0.6-precise5) precise; urgency=low
 
   * Sicherheitsupdate: verbundenes Tauschen-share im KA-Modus
-
   * Bugfix: Home_auf_Server gelöscht bei Doppelanmeldung an einem client
 
- -- Dominik Foerderer <dominik.foerderer@windeck-gymnasium.de>  Tue, 20 May 2014 21:00:09 +0100
-
-linuxmuster-client-shares (0.6-trusty1) trusty; urgency=low
-
-  * Merge der Anpassungen von R. Roessler aus dem master-branch
-  * Erstes Release für trusty
-
- -- Dominik Foerderer <dominik.foerderer@windeck-gymnasium.de> Thu, 20 May 2014 09:05:19 +0100
+ -- Rainer Rössler <rainer@linuxmuster.net>  Tue, 20 May 2014 20:33:09 +0200
 
 linuxmuster-client-shares (0.6-precise4) precise; urgency=low
 

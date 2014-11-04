@@ -82,6 +82,7 @@ grep -q ^${USER}: /etc/passwd && exit 0
 # no pammount for second login of domain-user
 if [ "`mount | grep /var/cache/sophomorix/tasks`" != "" ]; then exit 0; fi
 
+
 # PRE MOUNT HOOK
 log_msg "pre-mount sequence: run_hookdir /etc/linuxmuster-client/pre-mount.d $USER $VOLUME $MNTPT $SERVER $OPTIONS"
 run_hookdir /etc/linuxmuster-client/pre-mount.d $USER $VOLUME $MNTPT $SERVER $OPTIONS
