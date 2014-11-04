@@ -1,29 +1,35 @@
-linuxmuster-client-shares (0.6-precise5) precise; urgency=low
+linuxmuster-client-shares (0.6-trusty6) trusty; urgency=low
+
+  * Skript zur Erzeugung des precise Pakets
+
+ -- Rainer Rössler <rainer@linuxmuster.net>  Tue, 04 Nov 2014 21:57:09 +0200
+
+linuxmuster-client-shares (0.6-trusty5) trusty; urgency=low
 
   * Sicherheitsupdate: verbundenes Tauschen-share im KA-Modus
   * Bugfix: Home_auf_Server gelöscht bei Doppelanmeldung an einem client
 
  -- Rainer Rössler <rainer@linuxmuster.net>  Tue, 20 May 2014 20:33:09 +0200
 
-linuxmuster-client-shares (0.6-precise4) precise; urgency=low
+linuxmuster-client-shares (0.6-trusty4) trusty; urgency=low
 
   * Suche in getent group korrigiert
 
  -- Rainer Roessler <rainer@linuxmuster.net>  Thu, 15 May 2014 16:22:19 +0200
 
-linuxmuster-client-shares (0.6-precise3) precise; urgency=low
+linuxmuster-client-shares (0.6-trusty3) trusty; urgency=low
 
   * Konfigurationsverzeichnis shares nach /etc/linuxmuster-client/ verschoben
 
  -- Rainer Roessler <rainer@linuxmuster.net>  Wed, 14 May 2014 01:51:09 +0200
 
-linuxmuster-client-shares (0.6-precise2) precise; urgency=low
+linuxmuster-client-shares (0.6-trusty2) trusty; urgency=low
 
   * linuxmuster-client.conf nach /etc/linuxmuster-client/ verschoben 
 
  -- Rainer Roessler <rainer@linuxmuster.net>  Wed, 14 May 2014 01:36:50 +0200
 
-linuxmuster-client-shares (0.6-precise1) precise; urgency=low
+linuxmuster-client-shares (0.6-trusty1) trusty; urgency=low
 
   * Anmeldescripte 006-tasks-links , 007-share-links und 008-links
 	die als Ersatz für wide-links und bind-mounts die Tauschverzeichnisse
@@ -36,7 +42,7 @@ linuxmuster-client-shares (0.6-precise1) precise; urgency=low
 
  -- Rainer Roessler <rainer@linuxmuster.net>  Wed, 14 May 2014 01:09:32 +0200
 
-linuxmuster-client-shares (0.5-precise10) linuxmuster-client; urgency=low
+linuxmuster-client-shares (0.5-trusty10) linuxmuster-client; urgency=low
 
   * Fixed empty-OPTIONS bug in linuxmuster-pam-mount, linuxmuster-pam-umount
   * Changed pam_mount-conf.xml
@@ -45,13 +51,13 @@ linuxmuster-client-shares (0.5-precise10) linuxmuster-client; urgency=low
 
  -- Frank Schiebel <frank@linuxmuster.net>  Mon, 30 Apr 2012 20:12:05 +0200
 
-linuxmuster-client-shares (0.5-precise6) linuxmuster-client; urgency=low
+linuxmuster-client-shares (0.5-trusty6) linuxmuster-client; urgency=low
 
   * First documented version
 
  -- Frank Schiebel <frank@linuxmuster.net>  Mon, 30 Apr 2012 18:47:31 +0200
 
-linuxmuster-client-shares (0.5-precise5) linuxmuster-client; urgency=low
+linuxmuster-client-shares (0.5-trusty5) linuxmuster-client; urgency=low
 
   * Changed umount command to linuxmuster-pam-umount, enabling pre- and
     post-umount hooks
@@ -59,13 +65,13 @@ linuxmuster-client-shares (0.5-precise5) linuxmuster-client; urgency=low
 
  -- Frank Schiebel <frank@linuxmuster.net>  Thu, 26 Apr 2012 22:27:37 +0200
 
-linuxmuster-client-shares (0.5-precise2) linuxmuster-client; urgency=low
+linuxmuster-client-shares (0.5-trusty2) linuxmuster-client; urgency=low
 
   * Added boot.d script for autoconfiguring server ip in /etc/security/pam_mount.conf.xml
 
  -- Frank Schiebel <frank@linuxmuster.net>  Thu, 26 Apr 2012 12:18:27 +0200
 
-linuxmuster-client-shares (0.3-precise3) linuxmuster-client; urgency=low
+linuxmuster-client-shares (0.3-trusty3) linuxmuster-client; urgency=low
 
   * initial release
   * no pam mount for lightdm session
