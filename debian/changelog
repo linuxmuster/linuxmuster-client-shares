@@ -1,3 +1,14 @@
+linuxmuster-client-shares (0.6-trusty7) trusty; urgency=low
+
+  *  Wenn es mehrere Einträge für den Server gibt (A, AAA, MX), 
+	erzeugt die Abfrage #host SERVER
+	eine mehrzeilige Ausgaben, die nicht verarbeitet werden kann.
+	Daher wird jetzt nur noch nach A gefragt: 
+	 serverip=`host -t A $fqsn | awk '{print $4}'`
+	(Info von Christian über mailingliste)
+
+ -- Rainer Roessler <rainer@linuxmuster.net>  Fri, 05 Dec 2014 08:46:33 +0100
+
 linuxmuster-client-shares (0.6-trusty6) trusty; urgency=low
 
   * Skript zur Erzeugung des precise Pakets
