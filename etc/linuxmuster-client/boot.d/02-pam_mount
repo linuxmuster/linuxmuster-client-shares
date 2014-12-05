@@ -16,7 +16,7 @@ clientname=`host $clientip | awk '{print $5}' | cut -d. -f1`
 # determine servername
 fqsn=`host -v $clientip | grep -A1 AUTHORITY | grep in.addr | awk '{print $5}'`
 # determine serverip
-serverip=`host $fqsn | awk '{print $4}'`
+serverip=`host -t A $fqsn | awk '{print $4}'`
 PARTS=$(echo $fqsn | tr "." "\n")
 
 sn=""
