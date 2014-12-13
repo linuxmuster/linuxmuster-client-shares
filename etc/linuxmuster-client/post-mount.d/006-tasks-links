@@ -96,7 +96,7 @@ else
   # wenn das Verzeichnis schon exisitiert, werden enthaltene Dateien/Links gelöscht
   if [ -d $HOMEDIR/$LINKFOLDERTASKS ]
   then
-   rm $HOMEDIR/$LINKFOLDERTASKS/vorlagen*
+   rm -f $HOMEDIR/$LINKFOLDERTASKS/vorlagen*
   else 
    mkdir -p $HOMEDIR/$LINKFOLDERTASKS
    chmod 777 $HOMEDIR/$LINKFOLDERTASKS
