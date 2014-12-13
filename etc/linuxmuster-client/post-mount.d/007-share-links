@@ -72,7 +72,7 @@ else
   # wenn das Verzeichnis schon exisitiert, werden enthaltene Dateien/Links gelöscht
   if [ -d $HOMEDIR/$LINKFOLDERSHARE ]
   then
-   rm $HOMEDIR/$LINKFOLDERSHARE/tausch*
+   rm -f $HOMEDIR/$LINKFOLDERSHARE/tausch*
   else 
    mkdir -p $HOMEDIR/$LINKFOLDERSHARE
    chmod 777 $HOMEDIR/$LINKFOLDERSHARE
