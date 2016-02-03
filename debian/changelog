@@ -1,3 +1,10 @@
+linuxmuster-client-shares (0.6-xenial1) xenial-testing; urgency=low
+
+  * debian/postinst angepasst für subnetting
+  * Release für xenial xerus
+
+ -- Dominik Foerderer <dominik.foerderer@windeck-gymnasium.de>  Wed, 03 Feb 2016 12:25:44 +0100
+ 
 linuxmuster-client-shares (0.6-trusty8) trusty; urgency=low
 
   * debian/postinst mit "-t A" ergänzt zu 
