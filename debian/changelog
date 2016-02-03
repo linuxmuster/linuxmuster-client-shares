@@ -1,3 +1,9 @@
+linuxmuster-client-shares (0.6-trusty9) trusty; urgency=medium
+
+  * fix ip-adress resolution, subnetting forbids to use 255.240.0.0, fixes #505
+
+ -- Tobias Kuechel <t.kuechel@humboldt-ka.de>  Fri, 04 Dec 2015 03:30:06 +0100
+
 linuxmuster-client-shares (0.6-trusty8) trusty; urgency=low
 
   * debian/postinst mit "-t A" ergänzt zu 
