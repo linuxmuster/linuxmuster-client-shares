@@ -1,3 +1,8 @@
 linuxmuster-client-shares
 -------------------------
 
+* mount linuxmuster shares with pam_mount
+
+Compatible with:
+
+* Ubuntu 14.04 LTS
