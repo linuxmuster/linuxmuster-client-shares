@@ -29,7 +29,7 @@ case "$1" in
         clientip=`ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'`
         clientname=`host $clientip | awk '{print $5}' | cut -d. -f1`
         # determine servername
-        fqsn=`host -v $clientip | grep -A1 AUTHORITY | grep in.addr | awk '{print $5}' | cut -f 1-3 -d.`
+        fqsn=`host -v $clientip | grep -A1 AUTHORITY | grep in.addr | awk '{print $5}'`
         # determine serverip
         serverip=`host -t A $fqsn | awk '{print $4}'`
 
