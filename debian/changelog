@@ -1,3 +1,9 @@
+linuxmuster-client-shares (0.6-xenial4) xenial; urgency=low
+
+  * stable release for xenial xerus
+
+ -- Dominik Foerderer <dominik.foerderer@windeck-gymnasium.de>  Mon, 18 Apr 2016 12:37:44 +0100
+ 
 linuxmuster-client-shares (0.6-xenial3) xenial-testing; urgency=low
 
   * BugFix getting right fqsn
