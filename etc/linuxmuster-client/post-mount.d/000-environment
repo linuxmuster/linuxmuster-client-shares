@@ -10,7 +10,7 @@
 . /var/lib/linuxmuster-client-profile/functions.inc || exit 1
 
 # log some info
-$LOGGING && msg2log post-mount "Entering 000-environmnt $1 $2"
+$LOGGING && msg2log post-mount "Entering 000-environment $1 $2"
 
 # get environment: returns the following infos:
 #    USER=username
