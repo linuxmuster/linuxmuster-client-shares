@@ -48,7 +48,7 @@ IFS=$'\012'
 
 for NACHEINANDER in $LINKS; do
  
- SERVER=`echo $NACHEINANDER | cut -d ":" -f 1`
+ REMOTE=`echo $NACHEINANDER | cut -d ":" -f 1`
  
  LOKAL=`echo $NACHEINANDER | cut -d ":" -f 2-99`
  
@@ -72,9 +72,9 @@ for NACHEINANDER in $LINKS; do
   mv $LOKAL $LOKAL-entfernt
  fi
     
- if [ -e `echo $SERVER` ]
+ if [ -e `echo $REMOTE` ]
  then 
-  ln -s $SERVER $LOKAL
+  ln -s $REMOTE $LOKAL
 
  fi
   
