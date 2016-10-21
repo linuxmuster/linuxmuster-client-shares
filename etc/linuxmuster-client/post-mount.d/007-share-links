@@ -6,6 +6,13 @@
 # anhand der Gruppenzugehörigkeit.
 # Der Klassenarbeitsbenutzer erhält kein Tauschverzeichnis.
 
+$LOGGING && msg2log post-mount "007-share-links Environment settings are: USER=$USER VOLUME=$VOLUME MNPT=$MNTPT OPTIONS=$OPTIONS SERVER=$SERVER NUMUID=$NUMUID NUMPRIGID=$NUMPRIGID FULLNAME=$FULLNAME HOMEDIR=$HOMEDIR LOGINSHELL=$LOGINSHELL"
+
+# this script is supposed to be run only once after mount shares
+if [ $VOLUME != "shares" -o "$LMLSERVERIP" != "$REQSERVERIP" ]; then
+    return 0
+fi
+
 # Konfiguration einlesen für
 # Basics zu linuxmuster-clients
 . /etc/linuxmuster-client/linuxmuster-client.conf || exit 1 
