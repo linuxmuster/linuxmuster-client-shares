@@ -1,10 +1,17 @@
 #!/bin/bash
 # Script created by Rainer Rössler (roesslerrr-at-web.de)
 # License: Free Software (License GPLv3)
-
+#
 # Dieses Script erstellt Links für die Vorlagenverzeichnisse 
 # anhand der Gruppenzugehörigkeit.
-# Der Klassenarbeitsbenutzer erhält nur das Vrolagenverzeichnis für den Raum.
+# Der Klassenarbeitsbenutzer erhält nur das Vorlagenverzeichnis für den Raum.
+
+$LOGGING && msg2log post-mount "006-tasks-links Environment settings are: USER=$USER VOLUME=$VOLUME MNPT=$MNTPT OPTIONS=$OPTIONS SERVER=$SERVER NUMUID=$NUMUID NUMPRIGID=$NUMPRIGID FULLNAME=$FULLNAME HOMEDIR=$HOMEDIR LOGINSHELL=$LOGINSHELL"
+
+# this script is supposed to be run only once after mount tasks
+if [ $VOLUME != "tasks" -o "$LMLSERVERIP" != "$REQSERVERIP" ]; then
+    return 0
+fi
 
 # Konfiguration einlesen für
 # Basics zu linuxmuster-clients
@@ -18,14 +25,6 @@
 # daher auskommentiert - zu Testzwecken gesetzt
 #HOMEDIR="`pwd`"
 
-# Dieses Script soll nur einmal ausgeführt werden.
-# Nur nachdem das Serverhome des Benutzers gemountet wurde,
-# sind $USER und $VOLUME identisch, in allen anderen Fällen
-# bricht das Script ab - zu Testzwecken auskommentiert.
-#if [ $USER != $VOLUME ]; then
-#    return 0
-#fi
-
 # Wenn Klassenarbeitsaccount benutzt wird (/home/workstations/),
 # dann gibt es einen Link auf das Vorlagenverzeichnis für den Raum des Rechners
 
@@ -36,7 +35,7 @@ then
  #RAUM=${RECHNERRAUM%%$TRENNER*}
  RAUM=`echo $HOMEDIR | cut -d "/" -f 4`
 
- SERVER=`echo /var/cache/sophomorix/tasks/rooms/$RAUM`
+ REMOTE=`echo /var/cache/sophomorix/tasks/rooms/$RAUM`
  LOKAL=`echo $HOMEDIR/$LINKFOLDERTASKS`
  
  if [ -L `echo $LOKAL` ]
@@ -54,9 +53,9 @@ then
   mv $LOKAL $LOKAL-entfernt
  fi
     
- if [ -e `echo $SERVER` ]
+ if [ -e `echo $REMOTE` ]
  then 
-  ln -s $SERVER $LOKAL
+  ln -s $REMOTE $LOKAL
  fi
  
 # kein KA-account angemeldet, d.h. Schüler oder Lehrer ist angemeldet
@@ -113,7 +112,7 @@ else
  
  # Vorlagen-Verzeichnis aus Gruppenzugehörigkeit
  # Gruppenzugehörigkeiten abarbeiten
- # jeweils LOKAL und SERVER erstellen und Link erzeugen 
+ # jeweils LOKAL und REMOTE erstellen und Link erzeugen 
  
  for GRMITGLIED in $GRUPPEN; do
 
@@ -121,18 +120,18 @@ else
   LOKAL=`echo $HOMEDIR/$LINKFOLDERTASKS/vorlagen-$GRMITGLIED`
 
   # zunächst wird davon ausgegangen, dass die Gruppe eine Klasse ist
-  SERVER=`echo /var/cache/sophomorix/tasks/classes/$GRMITGLIED`
+  REMOTE=`echo /var/cache/sophomorix/tasks/classes/$GRMITGLIED`
   
   # eine Gruppe mit -A, -B, -C oder -D am Ende ist eine Unterklasse 
   if [ "`echo $GRMITGLIED | grep "\-[ABCD]$"`" != "" ]
   then  
-   SERVER=`echo /var/cache/sophomorix/tasks/subclasses/$GRMITGLIED`
+   REMOTE=`echo /var/cache/sophomorix/tasks/subclasses/$GRMITGLIED`
   fi
 
   # eine Gruppe mit p_ am Anfang ist eine Projektgruppe 
   if [ "`echo $GRMITGLIED | grep ^p_`" != "" ]
   then  
-   SERVER=`echo /var/cache/sophomorix/tasks/projects/$GRMITGLIED`
+   REMOTE=`echo /var/cache/sophomorix/tasks/projects/$GRMITGLIED`
   fi
     
   # das Vorlagenverzeichnis der Lehrer wird nicht verbunden
@@ -158,14 +157,14 @@ else
    mv $LOKAL $LOKAL-entfernt
   fi
 
-  if [ -e `echo $SERVER` ]
+  if [ -e `echo $REMOTE` ]
   then 
-   ln -s $SERVER $LOKAL
-   # echo ln -s $SERVER $LOKAL >> /tmp/gruppen-test
+   ln -s $REMOTE $LOKAL
+   # echo ln -s $REMOTE $LOKAL >> /tmp/gruppen-test
   fi
   
 #  echo >> /tmp/gruppen-test
-#  echo Server $SERVER >> /tmp/gruppen-test
+#  echo Server $REMOTE >> /tmp/gruppen-test
 #  echo Lokal $LOKAL >> /tmp/gruppen-test
 
  done
