@@ -1,9 +1,17 @@
 #!/bin/bash
 # Script created by Rainer Rössler (rainer-at-linuxmuster.net)
 # License: Free Software (License GPLv3)
-
+#
 # Wenn ein workstations-account=Klassenarbeitsbenutzer angemeldet ist,
 # wird die Verbindung zum Tauschen-Sahre getrennt. 
+
+$LOGGING && msg2log post-mount "009-no-share-exam Environment settings are: USER=$USER VOLUME=$VOLUME MNPT=$MNTPT OPTIONS=$OPTIONS SERVER=$SERVER NUMUID=$NUMUID NUMPRIGID=$NUMPRIGID FULLNAME=$FULLNAME HOMEDIR=$HOMEDIR LOGINSHELL=$LOGINSHELL"
+
+# this script is supposed to be run only once after mount of shares
+if [ $VOLUME != "shares" -o "$LMLSERVERIP" != "$REQSERVERIP" ]; then
+    return 0
+fi
+
 
 if [ "`echo $HOMEDIR | grep workstations`" == "" ]
 then 

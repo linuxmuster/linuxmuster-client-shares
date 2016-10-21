@@ -10,7 +10,7 @@
 . /var/lib/linuxmuster-client-profile/functions.inc || exit 1
 
 # log some info
-$LOGGING && msg2log post-mount "Entering 000-environmnt $1 $2"
+$LOGGING && msg2log post-mount "Entering 000-environment $1 $2"
 
 # get environment: returns the following infos:
 #    USER=username
@@ -25,5 +25,13 @@ $LOGGING && msg2log post-mount "Entering 000-environmnt $1 $2"
 #    HOMEDIR=users homedir, full path
 #    LOGINSHELL=users login shell, full path
 get_environment "$1" "$2" "$3" "$4" "$5"
+
+LMLSERVERIP=$(grep "^uri\ ldap://" /etc/ldap.conf | head -n 1 | sed "s@^uri\ ldap://@@;s@/.*@@")
+REQSERVERIP=$(gethostip $SERVER 2>/dev/null | awk '{print $2}')
+if [ $USER = $VOLUME -a "$LMLSERVERIP" = "$REQSERVERIP" ]; then
+    HOMEDIRMOUNT="true"
+else
+    HOMEDIRMOUNT=""
+fi
 
 $LOGGING && msg2log post-mount "Environment set: USER=$USER VOLUME=$VOLUME MNPT=$MNTPT OPTIONS=$OPTIONS SERVER=$SERVER NUMUID=$NUMUID NUMPRIGID=$NUMPRIGID FULLNAME=$FULLNAME HOMEDIR=$HOMEDIR LOGINSHELL=$LOGINSHELL"

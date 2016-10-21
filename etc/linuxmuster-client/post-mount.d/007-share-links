@@ -1,10 +1,17 @@
 #!/bin/bash
 # Script created by Rainer Rössler (roesslerrr-at-web.de)
 # License: Free Software (License GPLv3)
-
+#
 # Dieses Script erstellt Links für die Tauschverzeichnisse 
 # anhand der Gruppenzugehörigkeit.
 # Der Klassenarbeitsbenutzer erhält kein Tauschverzeichnis.
+
+$LOGGING && msg2log post-mount "007-share-links Environment settings are: USER=$USER VOLUME=$VOLUME MNPT=$MNTPT OPTIONS=$OPTIONS SERVER=$SERVER NUMUID=$NUMUID NUMPRIGID=$NUMPRIGID FULLNAME=$FULLNAME HOMEDIR=$HOMEDIR LOGINSHELL=$LOGINSHELL"
+
+# this script is supposed to be run only once after mount shares
+if [ $VOLUME != "shares" -o "$LMLSERVERIP" != "$REQSERVERIP" ]; then
+    return 0
+fi
 
 # Konfiguration einlesen für
 # Basics zu linuxmuster-clients
@@ -18,17 +25,8 @@
 # daher auskommentiert - zu Testzwecken gesetzt
 #HOMEDIR="`pwd`"
 
-# Dieses Script soll nur einmal ausgeführt werden.
-# Nur nachdem das Serverhome des Benutzers gemountet wurde,
-# sind $USER und $VOLUME identisch, in allen anderen Fällen
-# bricht das Script ab - zu Testzwecken auskommentiert.
-#if [ $USER != $VOLUME ]; then
-#    return 0
-#fi
-
 # Wenn Klassenarbeitsaccount benutzt wird (/home/workstations/),
-# dann gibt es einen Link auf das Vorlagenverzeichnis für den Raum des Rechners
-
+# dann gibt es keinen Link
 if [ "`echo $HOMEDIR | grep "/home/workstations"`" != "" ]
 then 
 
@@ -89,7 +87,7 @@ else
  
  # Vorlagen-Verzeichnis aus Gruppenzugehörigkeit
  # Gruppenzugehörigkeiten abarbeiten
- # jeweils LOKAL und SERVER erstellen und Link erzeugen 
+ # jeweils LOKAL und REMOTE erstellen und Link erzeugen 
  
  for GRMITGLIED in $GRUPPEN; do
 
@@ -97,18 +95,18 @@ else
   LOKAL=`echo $HOMEDIR/$LINKFOLDERSHARE/tausch-$GRMITGLIED`
 
   # zunächst wird davon ausgegangen, dass die Gruppe eine Klasse ist
-  SERVER=`echo /home/share/classes/$GRMITGLIED`
+  REMOTE=`echo /home/share/classes/$GRMITGLIED`
   
   # eine Gruppe mit -A, -B, -C oder -D am Ende ist eine Unterklasse 
   if [ "`echo $GRMITGLIED | grep "\-[ABCD]$"`" != "" ]
   then  
-   SERVER=`echo /home/share/subclasses/$GRMITGLIED`
+   REMOTE=`echo /home/share/subclasses/$GRMITGLIED`
   fi
 
   # die Gruppe teachers
   if [ "`echo $GRMITGLIED | grep teachers`" != "" ]
   then  
-   SERVER=`echo /home/share/$GRMITGLIED`
+   REMOTE=`echo /home/share/$GRMITGLIED`
 
    # Der Linkname wird neu definiert 
    LOKAL=`echo $HOMEDIR/$LINKFOLDERSHARE/tausch-$TEACHERS`
@@ -117,7 +115,7 @@ else
   # eine Gruppe mit p_ am Anfang ist eine Projektgruppe 
   if [ "`echo $GRMITGLIED | grep ^p_`" != "" ]
   then  
-   SERVER=`echo /home/share/projects/$GRMITGLIED`
+   REMOTE=`echo /home/share/projects/$GRMITGLIED`
   fi
     
   # Wenn Ziel auf Server NICHT vorhanden, 
@@ -140,13 +138,13 @@ else
    mv $LOKAL $LOKAL-entfernt
   fi
 
-  if [ -e `echo $SERVER` ]
+  if [ -e `echo $REMOTE` ]
   then 
-   ln -s $SERVER $LOKAL
+   ln -s $REMOTE $LOKAL
   fi
 
 #  echo >> /tmp/gruppen-test
-#  echo Server $SERVER >> /tmp/gruppen-test
+#  echo Server $REMOTE >> /tmp/gruppen-test
 #  echo Lokal $LOKAL >> /tmp/gruppen-test
   
  done
@@ -158,7 +156,7 @@ else
  LOKAL=`echo $HOMEDIR/$LINKFOLDERSHARE/tausch-$SCHOOL`
 
  # das Ziel auf dem Server für das schulweite Tauschverzeichnis
- SERVER=`echo /home/share/school`
+ REMOTE=`echo /home/share/school`
   
  # Wenn Ziel auf Server NICHT vorhanden, 
  # (weder als Verzeichnis -d noch als Datei -f)
@@ -180,13 +178,13 @@ else
   mv $LOKAL $LOKAL-entfernt
  fi
 
- if [ -e `echo $SERVER` ]
+ if [ -e `echo $REMOTE` ]
  then 
-  ln -s $SERVER $LOKAL
+  ln -s $REMOTE $LOKAL
  fi
 
 #  echo
-#  echo Server $SERVER
+#  echo Server $REMOTE
 #  echo Lokal $LOKAL
  
 fi
