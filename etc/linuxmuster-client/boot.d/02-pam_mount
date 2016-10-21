@@ -11,10 +11,10 @@ fi
 TEMPLATESDIR="/var/lib/linuxmuster-client-shares/templates"
 
 # determine client ip
-clientip=`ifconfig  | grep 255.240.0.0 | awk '{print $2}' | awk -F: '{print $2}'`
+clientip=`ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/'`
 clientname=`host $clientip | awk '{print $5}' | cut -d. -f1`
 # determine servername
-fqsn=`host -v $clientip | grep -A1 AUTHORITY | grep in.addr | awk '{print $5}'`
+fqsn=`host -v $clientip | grep -A1 AUTHORITY | grep in.addr | awk '{print $5}' | sed 's/.$//'`
 # determine serverip
 serverip=`host -t A $fqsn | awk '{print $4}'`
 PARTS=$(echo $fqsn | tr "." "\n")
