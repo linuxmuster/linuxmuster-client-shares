@@ -1,12 +1,14 @@
 #!/bin/bash
 # Script created by Rainer Rössler (roesslerrr-at-web.de)
 # License: Free Software (License GPLv3)
-
+#
 # Dieses Script erstellt Links nach den Einstellungen unter 
 # /etc/linuxmuster-client/shares/links.conf
 # dabei werden die Einträge vor dem Doppelpunkt als Ziel = Quelle angenommen 
 # und Einträge nach dem Doppelpunkt als symbolischer Link 
 # HOMEDIR bezeichnet das lokale Heimatverzeichnis
+
+$LOGGING && msg2log post-mount "008-links Environment settings are: USER=$USER VOLUME=$VOLUME MNPT=$MNTPT OPTIONS=$OPTIONS SERVER=$SERVER NUMUID=$NUMUID NUMPRIGID=$NUMPRIGID FULLNAME=$FULLNAME HOMEDIR=$HOMEDIR LOGINSHELL=$LOGINSHELL"
 
 # Konfiguration einlesen für
 # Basics zu linuxmuster-clients
@@ -28,15 +30,6 @@ then
 else
  LINKS=""
 fi
-
-# Dieses Script soll nur einmal ausgeführt werden.
-# Nur nachdem das Serverhome des Benutzers gemountet wurde,
-# sind $USER und $VOLUME identisch, in allen anderen Fällen
-# bricht das Script ab - zu Testzwecken auskommentiert.
-#if [ $USER != $VOLUME ]; then
-#    return 0
-#fi
-
 
 # Um in den Schleifen Inhalte mit Leerzeichen verarbeiten zu können,
 # die durch das Leerzeichen nicht als getrennte Inhalte interpretiert werden
